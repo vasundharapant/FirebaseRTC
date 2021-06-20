@@ -4,37 +4,32 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Welcome to FirebaseRTC</title>
-    <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
-    <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
+
+ 
       <!-- The core Firebase JS SDK is always required and must be listed first -->
-    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
-       <!-- TODO: Add SDKs for Firebase products that you want to use
-     https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script> 
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-firestore.js"></script>
-
 
     <link rel="stylesheet" type="text/css" href="main.css">
 </head>
 <body>
 <h1>Welcome to FirebaseRTC!</h1>
 <div id="buttons">
-    <button class="mdc-button mdc-button--raised" id="cameraBtn">
-        <i class="material-icons mdc-button__icon" aria-hidden="true">perm_camera_mic</i>
-        <span class="mdc-button__label">Open camera & microphone</span>
+    <button type="button" class="btn btn-primary" id="cameraBtn">
+        Open camera & microphone
     </button>
-    <button class="mdc-button mdc-button--raised" disabled id="createBtn">
-        <i class="material-icons mdc-button__icon" aria-hidden="true">group_add</i>
-        <span class="mdc-button__label">Create room</span>
+    <button type="button" class="btn btn-primary" disabled id="createBtn">
+        Create room
     </button>
-    <button class="mdc-button mdc-button--raised" disabled id="joinBtn">
-        <i class="material-icons mdc-button__icon" aria-hidden="true">group</i>
-        <span class="mdc-button__label">Join room</span>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#joinModal" disabled id="joinBtn">
+        Join room
     </button>
-    <button class="mdc-button mdc-button--raised" disabled id="hangupBtn">
-        <i class="material-icons mdc-button__icon" aria-hidden="true">close</i>
-        <span class="mdc-button__label">Hangup</span>
+    <button type="button" class="btn btn-primary" disabled id="hangupBtn">
+        Hangup
     </button>
 </div>
 <div>
@@ -44,35 +39,26 @@
     <video id="localVideo" muted autoplay playsinline></video>
     <video id="remoteVideo" autoplay playsinline></video>
 </div>
-<div class="mdc-dialog"
-     id="room-dialog"
-     role="alertdialog"
-     aria-modal="true"
-     aria-labelledby="my-dialog-title"
-     aria-describedby="my-dialog-content">
-    <div class="mdc-dialog__container">
-        <div class="mdc-dialog__surface">
-            <h2 class="mdc-dialog__title" id="my-dialog-title">Join room</h2>
-            <div class="mdc-dialog__content" id="my-dialog-content">
-                Enter ID for room to join:
-                <div class="mdc-text-field">
-                    <input type="text" id="room-id" class="mdc-text-field__input">
-                    <label class="mdc-floating-label" for="my-text-field">Room ID</label>
-                    <div class="mdc-line-ripple"></div>
-                </div>
-            </div>
-            <footer class="mdc-dialog__actions">
-                <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="no">
-                    <span class="mdc-button__label">Cancel</span>
-                </button>
-                <button id="confirmJoinBtn" type="button" class="mdc-button mdc-dialog__button"
-                        data-mdc-dialog-action="yes">
-                    <span class="mdc-button__label">Join</span>
-                </button>
-            </footer>
+
+<!-- Modal -->
+   <div class="modal fade" id="joinModal" tabindex="-1" aria-labelledby="joinModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Join Room</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
+        <div class="modal-body">
+            Enter ID of room to join:
+            <input id="room-id" type="text" class="form-control" placeholder="Enter ID" aria-label="ID" aria-describedby="enterid">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button id="confirmJoinBtn" type="button" class="btn btn-primary">Join</button>
+        </div>
+      </div>
     </div>
-    <div class="mdc-dialog__scrim"></div>
+   </div>
 </div>
 
 
@@ -93,6 +79,6 @@
   firebase.initializeApp(firebaseConfig);
  
 </script>
-<script src="app.js"></script>
+<script src="app2.js"></script>
 </body>
 </html>

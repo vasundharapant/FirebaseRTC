@@ -1,4 +1,3 @@
-mdc.ripple.MDCRipple.attachTo(document.querySelector('.mdc-button'));
 
 const configuration = {
   iceServers: [
@@ -15,7 +14,6 @@ const configuration = {
 let peerConnection = null;
 let localStream = null;
 let remoteStream = null;
-let roomDialog = null;
 let roomId = null;
 
 function init() {
@@ -23,17 +21,14 @@ function init() {
   document.querySelector('#hangupBtn').addEventListener('click', hangUp);
   document.querySelector('#createBtn').addEventListener('click', createRoom);
   document.querySelector('#joinBtn').addEventListener('click', joinRoom);
-  roomDialog = new mdc.dialog.MDCDialog(document.querySelector('#room-dialog'));
 }
 
 async function createRoom() {
   document.querySelector('#createBtn').disabled = true;
   document.querySelector('#joinBtn').disabled = true;
   const db = firebase.firestore();
-  const roomRef = await db.collection('rooms').doc();
-  console.log('hi');
-  console.log('Create PeerConnection with configuration: ', configuration);
-  console.log(roomRef);
+  const roomRef = await db.collection('rooms').doc();  
+  console.log('Create PeerConnection with configuration: ', configuration); 
   peerConnection = new RTCPeerConnection(configuration);
 
   registerPeerConnectionListeners();
@@ -43,8 +38,7 @@ async function createRoom() {
   });
 
   // Code for collecting ICE candidates below
-  const callerCandidatesCollection = roomRef.collection('callerCandidates');
-  console.log(callerCandidatesCollection);
+  const callerCandidatesCollection = roomRef.collection('callerCandidates');  
   peerConnection.addEventListener('icecandidate', event => {
     if (!event.candidate) {
       console.log('Got final candidate!');
@@ -116,8 +110,7 @@ function joinRoom() {
         document.querySelector(
             '#currentRoom').innerText = `Current room is ${roomId} - You are the callee!`;
         await joinRoomById(roomId);
-      }, {once: true});
-  roomDialog.open();
+      }, {once: true});  
 }
 
 async function joinRoomById(roomId) {
